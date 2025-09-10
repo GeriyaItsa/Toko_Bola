@@ -11,6 +11,7 @@ class News(models.Model):
         ('analysis', 'Analysis'),
     ]
     
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -19,6 +20,9 @@ class News(models.Model):
     news_views = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     is_featured = models.BooleanField(default=False)
+    name = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.TextField()
     
     def __str__(self):
         return self.title
