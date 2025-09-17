@@ -16,13 +16,13 @@ class Migration(migrations.Migration):
             name='News',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255)),
-                ('content', models.TextField()),
-                ('category', models.CharField(choices=[('transfer', 'Transfer'), ('update', 'Update'), ('exclusive', 'Exclusive'), ('match', 'Match'), ('rumor', 'Rumor'), ('analysis', 'Analysis')], default='update', max_length=20)),
+                ('name', models.CharField(max_length=255)),
+                ('price', models.IntegerField()),
+                ('description', models.TextField()),
                 ('thumbnail', models.URLField(blank=True, null=True)),
-                ('news_views', models.PositiveIntegerField(default=0)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('category', models.CharField(choices=[('sepatu bola', 'Sepatu Bola'), ('jersey', 'Jersey'), ('bola', 'Bola'), ('aksesoris', 'Aksesoris'), ('alat latihan', 'Alat Latihan')], default='update', max_length=20)),
                 ('is_featured', models.BooleanField(default=False)),
+                ('stok', models.IntegerField(default=0)),
             ],
         ),
     ]

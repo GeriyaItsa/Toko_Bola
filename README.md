@@ -1,3 +1,5 @@
+TUGAS 2
+
 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step ->
 buat repositori di github
 buat folder dan aktifkan virtual environment
@@ -28,3 +30,30 @@ jika semuanya sudah, push kode ke git dan juga pws
 
 5. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?
 -> aman terkendali
+
+TUGAS 3
+1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?
+-> Agar data bisa diakses oleh pengguna atau sistem lain, memastikan pertukaran data yang konsisten, mendukung integrasi antar sistem, efisiensi dan kecepatan, dan keamanan data.
+
+2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+-> JSON lebih hemat bandwidth karena tidak perlu menulis banyak tag seperti XML, mudah dibaca, integrasi lebih cepat untuk API modern, dan native di java. jadi menurut saya lebih baik JSON karena lebih ringkas, mudah, dan cepat.
+
+3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+-> di django, method is_valid() digunakan untuk mengecek apakah data dari form sudah sesuai aturan validasi. saat form dikirim, datanya ditampung dalam objek form, lalu form.is_valid() akan memeriksa apakah tiap field terisi dengan benar (misalnya tipe data atau panjang teks), menjalankan validasi tambahan, dan mengembalikan True jika valid atau False jika ada kesalahan. method ini penting karena hanya data yang valid yang aman diproses lebih lanjut, seperti disimpan ke database atau dikirim ke layanan lain. jika tidak ada, maka data yang salah format atau kosong bisa masuk dan menimbulkan bug maupun masalah keamanan.
+
+4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+-> csrf_token adalah pelindung dari serangan CSRF (Cross-Site Request Forgery). token ini berupa kode acak yang unik untuk setiap pengguna dan disisipkan ke dalam form yang mengirim data dengan metode POST. saat form dikirim, server akan mengecek apakah tokennya cocok dengan yang sudah diberikan. kalau tidak cocok, request ditolak. kalau tidak ada csrf_token, server tidak bisa membedakan mana permintaan asli dari pengguna dan mana yang dibuat oleh orang jahat. penyerang bisa bikin website palsu yang diam-diam mengirim permintaan ke server menggunakan akun kita yang sedang login. akibatnya bisa terjadi aksi berbahaya tanpa disadari. jadi, csrf_token penting untuk menjaga keamanan data dan mencegah serangan.
+
+5. 
+ - membuat direktori templates yang berisi base.html lalu ditambah / saya sesuaikan ke setting.py
+ - lalu saya membuat forms.py pada direktori main. lalu isi field sesuai dengan models.
+ - lalu saya menambahkan fungsi di views.py untuk melihat objek dalam format xml, json, xml by id, dan json by id serta untuk menambahkan dan menampilkan product
+ - lalu pada bagian urls.py import fungsi-fungsi yang sudah dibuat kemudian ditambah ke path URL dalam variabel urlpatterns.
+ - dalam main.html update kode di dalam blok content untuk menampilkan data product serta tombol "Add Product"
+ - tambah dua berkas dalam direktori main/templates untuk halaman form input dan detail berita. yaitu create_product.html dan product_detail.html
+ - setelah itu di settings.py saya tambahkan entri url proyek pws pada CSRF_TRUSTED_ORIGINS
+
+
+6. feedback untuk asdos -> sudah baik menjalankan tugasnya, terimakasih.
+
+7. saya sudah mengunggah hasil screenshot dengan membuat foldernya.
