@@ -54,6 +54,73 @@ TUGAS 3
  - setelah itu di settings.py saya tambahkan entri url proyek pws pada CSRF_TRUSTED_ORIGINS
 
 
-6. feedback untuk asdos -> sudah baik menjalankan tugasnya, terimakasih.
+6. feedback untuk asdos -> sudah baik menjalankan tugasnya, terimakasih
 
 7. saya sudah mengunggah hasil screenshot dengan membuat foldernya.
+
+TUGAS 4
+1. 
+-> AuthenticationForm adalah formulir login bawaan dari django yang digunakan untuk mengelola proses login
+kelebihan : 
+    - tidak perlu membuat form login dari nol
+    - mudah digunakan
+    - terintegrasi dengan sistem auth django 
+    - aman secara default
+
+kekurangan : 
+    - kurang fleksibel di tampilan default 
+    - terbatas untuk username/password standar
+    - tidak ada fitur tambahan seperti captcha atau OTP
+
+2. Apa perbedaan antara autentikasi dan otorisasi? Bagaiamana Django mengimplementasikan kedua konsep tersebut?
+-> autentikasi berfokus pada verifikasi identitas pengguna seperti contoh menyocokkan antar username dengan password pengguna sedangkan otorisasi menentukan apa yang boleh dilakukan oleh pengguna teratutentikasi. 
+
+Bagaimana django mengimplementasikan kedua konsep tersebut?
+-> autentikasi melalui django.contrib.auth dengan fungsi sperti login, dan logout. kalau otorisasi bisa menggunakan @login_required yang berfungsi hak yang bisa diakses user yang login.
+
+3. Apa saja kelebihan dan kekurangan session dan cookies dalam konteks menyimpan state di aplikasi web?
+-> 
+SESSION
+Kelebihan session : 
+    - lebih aman
+    - bisa menyimpan data lebih besar dan kompleks daripda cookies
+    - kontrol ada di server sehingga user tidak mudah untuk memanipulasi
+
+Kekurangan session
+    - beban dan konsumsi sumber daya server
+    - manajemen lebih kompleks 
+    - resiko kegagalan server
+
+COOKIES
+kelebihan cookies : 
+    - fleksibel dan mudah diimplementasikan
+    - mengurangi beban server karena data langsung disimpan di browser user
+    - bisa untuk preferensi pengguna
+
+kekurangn cookies :
+    - kapasitas terbatas
+    - kerentanan keamanan
+    - dikirim pada tiap permintaan HTTP sehingga meningkatkan lalu lintas jaringan
+
+4. Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai? Bagaimana Django menangani hal tersebut?
+-> tidak sepenuhnya aman
+contoh : 
+    - serangan Cross-site Scripting, penyerang bisa menyerang lewat cookie pengguna
+    - cookie manipulation
+    - insecure transport
+
+Bagaimnana django menanganinya?
+-> memastikan kode hanya dikirim lewat https, tidak lewat http biasa, mencegas XSS dengan membatasi akses cookie hanya oleh server, mengurangi risiko csrf dengan membatasi pengiriman cookie lints domain, dan django punya SignedCookieSession yang menandatangani cookie, sehingga user tidak bisa memanipulasi isinya tanpa terdeteksi.
+
+5. 
+    1. saya membuat fungsi registrasi pada views.py dan menambahkan import from django.contrib import messages. saya juga membuat register.html lalu import register pada urls.py dan tambahkan path url ke dalam url patterns untuk akses fungsi yang sudah diimpor tadi
+
+    2. saya membuat fungsi login dengan menambahkan import from django.contrib.auth.forms import UserCreationForm, AuthenticationForm from django.contrib.auth import authenticate, login di views.py dan membuat fungsi login user untuk autentikasi pemngguna yang ingin login. saya juga membuat login.html lalu import login pada urls.py dan tambahkan path url ke dalam url patterns untuk akses fungsi yang sudah diimpor tadi
+
+    3. saya membuat fungsi logout dengan memnambahkan import from django.contrib.auth import logout pada views.py dan menambahkan fungsi logout yang berguna mengarahkan pengguna ke halaman login dalam aplikasi Django. pada main.html saya membuat tombol logout ketika diklik akan menjalankan URL main:logout. lalu import from main.views import logout_user pada urls.py dan tambahkan path url ke dalam url patterns untuk akses fungsi yang sudah diimpor tadi
+
+    4. mengaplikasikan decorator login_required untuk fungsi show_main dan show_product sehingga halaman utama dan product detail hanya dapat diakses oleh pengguna yang sudah login (terautentikasi).
+
+    5. saya juga memperbarui kode login_user untuk menyimpan cookie yang bernama last_login. perbarui fungsi logout juga untuk mennghapus cookie last_login setelah melakukan logout. dan tambahkan informasi sesi terakhir login pada main.html
+
+    6. saya juga menghubungkan product dengan user. setiap product akan terasosiasi dengan user.
