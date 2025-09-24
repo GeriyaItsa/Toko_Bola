@@ -123,4 +123,4 @@ Bagaimnana django menanganinya?
 
     5. saya juga memperbarui kode login_user untuk menyimpan cookie yang bernama last_login. perbarui fungsi logout juga untuk mennghapus cookie last_login setelah melakukan logout. dan tambahkan informasi sesi terakhir login pada main.html
 
-    6. saya juga menghubungkan product dengan user. setiap product akan terasosiasi dengan user.
+    6. saya juga menghubungkan product dengan user. setiap product akan terasosiasi dengan user
