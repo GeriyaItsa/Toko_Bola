@@ -160,5 +160,5 @@ Dalam CSS, ketiganya bisa diatur dengan properti margin, border, dan padding. Mi
     6. Styling pada Aplikasi dengan Tailwind dan External CSS dengan menambahkan global.css di /static/css lalu hubungkan global.css dan script Tailwind ke base.html
     7. lalu styling navbar sekreatif mungkin
     8. lalu styling halaman login, register, dll.
-    9. kita buat no-product.png ke direktori static/image. ambil suatu gambar agar jika user belom ada product dan ke my product akan memunculkan gambar belom ada product.
+    9. kita buat no-product.png ke direktori static/image. ambil suatu gambar agar jika user belom ada product dan ke my product akan memunculkan gambar belom ada product
     10. saya juga styling halaman product_detail, create_product, dan edit product.
