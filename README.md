@@ -124,3 +124,41 @@ Bagaimnana django menanganinya?
     5. saya juga memperbarui kode login_user untuk menyimpan cookie yang bernama last_login. perbarui fungsi logout juga untuk mennghapus cookie last_login setelah melakukan logout. dan tambahkan informasi sesi terakhir login pada main.html
 
     6. saya juga menghubungkan product dengan user. setiap product akan terasosiasi dengan user
+
+TUGAS 5
+
+1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut
+->  - !important selalu menang (kecuali ada !important lain dengan specificity lebih tinggi).
+    - Inline style (style="") lebih tinggi dari CSS di file.
+    - Specificity dihitung:
+        ID = 100 poin
+        Class/attribute/pseudo-class = 10 poin
+        Elemen/pseudo-element = 1 poin 
+    - Kalau specificity sama, aturan yang ditulis terakhir yang dipakai.
+
+2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!
+-> Responsive design penting karena orang mengakses web dari berbagai perangkat dengan ukuran layar berbeda. Tanpa desain ini, tampilan bisa berantakan dan sulit digunakan. Contoh yang sudah responsif adalah YouTube, yang menyesuaikan layout di HP maupun laptop sehingga tetap nyaman. Sebaliknya, beberapa web forum lama tidak responsif, jadi kalau dibuka di HP harus zoom dan geser-geser. Jadi, responsive design memastikan web enak dipakai di semua perangkat.
+
+3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!  
+    - Margin: ruang di luar elemen. Jadi fungsinya untuk ngasih jarak antara elemen satu dengan elemen lain.
+    - Border: garis yang ada di pinggir elemen, membungkus konten dan padding.
+    - Padding: ruang di dalam elemen, antara konten (misalnya teks) dengan border.
+
+Dalam CSS, ketiganya bisa diatur dengan properti margin, border, dan padding. Misalnya, jika kita menuliskan margin: 20px; border: 2px solid black; padding: 15px;, maka kotak akan memiliki jarak 20 piksel dari elemen lain, garis tepi hitam setebal 2 piksel, dan ruang kosong 15 piksel di dalam kotak sebelum kontennya.
+
+4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+->
+    - Flexbox adalah sistem layout CSS untuk mengatur elemen dalam satu arah (horizontal atau vertikal). Cocok dipakai untuk      membuat barisan menu, tombol, atau card yang fleksibel dan rapi.
+    - Grid Layout adalah sistem dua dimensi yang membagi halaman menjadi baris dan kolom, ideal untuk layout kompleks seperti     halaman dengan header, sidebar, dan konten utama.
+
+5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step
+    1. saya memilih menggunakan tailwind ke aplikasi. Tailwind CSS memiliki memberikan fleksibilitas dan adaptabilitas tinggi terhadap proyek
+    2. saya juga menambahkan fitur edit product untuk mengedit product dengan membuat berkas html baru yaitu edit_product.html dan import di urls.py dan tambahkan path url. lalu perbarui tombol edit di loop product_list pada main.html
+    3. saya juga menambahkan fitur delete product untuk menghapus product dan import di urls.py dan tambahkan path url. lalu perbarui tombol delete di loop product_list pada main.html
+    4. lalu saya menambahkan navigation bar 
+    5. konfigurasi static files 
+    6. Styling pada Aplikasi dengan Tailwind dan External CSS dengan menambahkan global.css di /static/css lalu hubungkan global.css dan script Tailwind ke base.html
+    7. lalu styling navbar sekreatif mungkin
+    8. lalu styling halaman login, register, dll.
+    9. kita buat no-product.png ke direktori static/image. ambil suatu gambar agar jika user belom ada product dan ke my product akan memunculkan gambar belom ada product.
+    10. saya juga styling halaman product_detail, create_product, dan edit product.

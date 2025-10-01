@@ -116,3 +116,32 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == 'POST':
+        form.save()
+        return redirect('main:show_main')
+
+    context = {
+        'form': form
+    }
+
+    return render(request, "edit_product.html", context)
+
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    product.delete()
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def beranda(request):
+    context = {
+        "title": "Beranda",
+        "description": "Selamat datang di Football Product! Website ini menyediakan produk perlengkapan sepak bola terbaik.",
+        "features": [
+            "Cek produk terbaru",
+            "Buat dan kelola produk sendiri",
+        ]
+    }
+    return render(request, "beranda.html", context)
