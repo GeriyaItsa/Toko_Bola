@@ -4,11 +4,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {% block meta %} {% endblock meta %}
+
+    {% block meta %}{% endblock meta %}
+
+    <!-- TailwindCSS & DOMPurify -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{% static 'css/global.css' %}"/>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.5/dist/purify.min.js"></script>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
   </head>
-  <body>
-    {% block content %} {% endblock content %}
+
+  <body class="bg-gray-50 text-gray-900">
+    {% block content %}
+    {% endblock content %}
+
+    <!-- Toast & Modal Components -->
+    {% include 'toast.html' %}
+    {% include 'modal.html' %}
+
+    <!-- Toast Script -->
+    <script src="{% static 'js/toast.js' %}"></script>
+
+    <!-- Django Messages -> Toast -->
+    {% if messages %}
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        {% for message in messages %}
+          showToast("{{ message|escapejs }}", "{{ message.tags }}");
+        {% endfor %}
+      });
+    </script>
+    {% endif %}
   </body>
 </html>

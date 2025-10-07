@@ -1,0 +1,220 @@
+<!-- ...existing code... -->
+<div id="crudModal" class="hidden fixed inset-0 z-50 w-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+  <div id="crudModalContent" class="bg-white rounded-lg shadow-lg w-5/6 sm:w-3/5 md:w-1/2 lg:w-2/5 xl:w-1/3 max-h-screen overflow-y-auto opacity-100 scale-100">
+    <!-- Modal header -->
+    <div class="flex items-center justify-between p-4 border-b">
+      <div>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Create Product
+        </h3>
+        <p class="text-sm text-gray-600 mt-1">Tambahkan produk perlengkapan sepak bola Anda</p>
+      </div>
+      <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="hideModal()">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+    </div>
+
+    <!-- Modal body -->
+    <div class="px-6 py-4 space-y-6 form-style">
+      <div id="modalAlert" class="hidden rounded-md p-3 text-sm" role="alert"></div>
+
+      <form id="productForm" method="POST" action="{% url 'main:create_product' %}" class="space-y-4">
+        {% csrf_token %}
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk</label>
+          <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Contoh: Sepatu Bola Predator" required>
+        </div>
+
+        <div>
+          <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi</label>
+          <textarea id="description" name="description" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Deskripsi singkat produk" required></textarea>
+        </div>
+
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
+          <select id="category" name="category" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" required>
+            <option value="">Pilih kategori</option>
+            <option value="pakaian">Pakaian</option>
+            <option value="aksesoris">Aksesoris</option>
+            <option value="sepatu">Sepatu</option>
+            <option value="bola">Bola</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="thumbnail" class="block text-sm font-medium text-gray-700">Thumbnail URL</label>
+          <input type="url" id="thumbnail" name="thumbnail" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="https://example.com/image.jpg">
+        </div>
+
+        <div>
+          <label for="price" class="block text-sm font-medium text-gray-700">Harga (Rp)</label>
+          <input type="number" id="price" name="price" min="0" step="1" class="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Contoh: 150000" required>
+        </div>
+
+        <div class="flex items-center">
+          <input id="is_featured" name="is_featured" type="checkbox" class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded">
+          <label for="is_featured" class="ml-2 text-sm font-medium text-gray-900">Featured</label>
+        </div>
+      </form>
+    </div>
+
+    <!-- Modal footer -->
+    <div class="flex flex-col sm:flex-row gap-4 p-6 border-t border-gray-200 rounded-b">
+      <button type="button" id="cancelButton" class="order-2 sm:order-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-md font-medium hover:bg-gray-50 transition-colors" onclick="hideModal()">Batal</button>
+      <button type="submit" id="submitProduct" form="productForm" class="order-1 sm:order-2 flex-1 bg-green-600 text-white px-6 py-3 rounded-md font-medium hover:bg-green-700 transition-colors">Publikasikan Produk</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* modal controls */
+  const crudModal = document.getElementById('crudModal');
+  const crudModalContent = document.getElementById('crudModalContent');
+  function showModal() {
+    crudModal.classList.remove('hidden');
+    setTimeout(() => {
+      crudModalContent.classList.remove('opacity-0','scale-95');
+      crudModalContent.classList.add('opacity-100','scale-100');
+    }, 30);
+  }
+  function hideModal() {
+    crudModalContent.classList.remove('opacity-100','scale-100');
+    crudModalContent.classList.add('opacity-0','scale-95');
+    setTimeout(() => crudModal.classList.add('hidden'), 120);
+    clearModalAlert();
+    // optional: reset form
+    // document.getElementById('productForm').reset();
+  }
+
+
+  async function addProductEntry() {
+    // use product form and product endpoint
+    const form = document.querySelector('#productForm');
+    if (!form) return false;
+
+    clearModalAlert();
+    const csrf = form.querySelector('input[name="csrfmiddlewaretoken"]')?.value || '';
+    const fd = new FormData(form);
+    fd.set('is_featured', form.querySelector('#is_featured')?.checked ? 'on' : '');
+
+    try {
+      const resp = await fetch("{% url 'main:add_product_entry_ajax' %}", {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrf,
+          'Accept': 'application/json'
+        },
+        body: fd
+      });
+
+      if (resp.ok) {
+        const data = await resp.json().catch(() => ({}));
+        form.reset();
+        hideModal();
+        showToast('Produk berhasil dibuat', '', 'success');
+        // notify main page to refresh list
+        document.dispatchEvent(new CustomEvent('productAdded', { detail: data }));
+        return false;
+      }
+
+      const ct = resp.headers.get('content-type') || '';
+      if (ct.includes('application/json')) {
+        const data = await resp.json();
+        if (data.errors) {
+          // join validation messages
+          const msg = Object.values(data.errors).flat().join(' ');
+          showModalAlert(msg || 'Terjadi kesalahan input.', 'error');
+        } else if (data.detail) {
+          showModalAlert(data.detail, 'error');
+        } else {
+          showModalAlert('Gagal membuat produk. Periksa input.', 'error');
+        }
+      } else {
+        const txt = await resp.text();
+        console.error('Server response:', txt);
+        showModalAlert('Gagal membuat produk. Periksa form dan coba lagi.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showModalAlert('Kesalahan jaringan. Coba lagi.', 'error');
+    }
+
+    return false;
+  }
+
+  document.getElementById("ProductForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    addProductEntry();
+})
+
+  /* alert helpers */
+  const modalAlert = document.getElementById('modalAlert');
+  function showModalAlert(message, level='error') {
+    modalAlert.classList.remove('hidden');
+    modalAlert.textContent = message;
+    modalAlert.className = 'rounded-md p-3 text-sm';
+    if (level === 'error') modalAlert.classList.add('bg-red-50','text-red-700','border','border-red-100');
+    else modalAlert.classList.add('bg-green-50','text-green-700','border','border-green-100');
+  }
+  function clearModalAlert() {
+    modalAlert.className = 'hidden';
+    modalAlert.textContent = '';
+  }
+
+  /* AJAX submit */
+  const productForm = document.getElementById('productForm');
+  const submitBtn = document.getElementById('submitProduct');
+
+  productForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearModalAlert();
+    submitBtn.disabled = true;
+    submitBtn.classList.add('opacity-70','cursor-not-allowed');
+
+    const url = productForm.getAttribute('action') || '{% url "main:create_product" %}';
+    const csrfInput = productForm.querySelector('input[name="csrfmiddlewaretoken"]');
+    const csrfToken = csrfInput ? csrfInput.value : '';
+
+    const fd = new FormData(productForm);
+    // ensure checkbox value
+    fd.set('is_featured', productForm.querySelector('#is_featured').checked ? 'on' : '');
+
+    try {
+      const resp = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken,
+          'Accept': 'application/json'
+        },
+        body: fd
+      });
+
+      if (resp.ok) {
+        // created — redirect to main page
+        window.location.href = "{% url 'main:show_main' %}";
+        return;
+      }
+
+      const ct = resp.headers.get('content-type') || '';
+      if (ct.includes('application/json')) {
+        const data = await resp.json();
+        if (data.detail) showModalAlert(data.detail,'error');
+        else if (data.errors) showModalAlert(JSON.stringify(data.errors),'error');
+        else showModalAlert('Gagal membuat produk. Periksa input.', 'error');
+      } else {
+        const txt = await resp.text();
+        console.error('Server response:', txt);
+        showModalAlert('Gagal membuat produk. Periksa form dan coba lagi.', 'error');
+      }
+    } catch (err) {
+      console.error(err);
+      showModalAlert('Kesalahan jaringan. Coba lagi.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('opacity-70','cursor-not-allowed');
+    }
+  });
+</script>

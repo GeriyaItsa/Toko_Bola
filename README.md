@@ -162,3 +162,19 @@ Dalam CSS, ketiganya bisa diatur dengan properti margin, border, dan padding. Mi
     8. lalu styling halaman login, register, dll.
     9. kita buat no-product.png ke direktori static/image. ambil suatu gambar agar jika user belom ada product dan ke my product akan memunculkan gambar belom ada product
     10. saya juga styling halaman product_detail, create_product, dan edit product.
+
+TUGAS 6
+1. Perbedaan antara synchronous request dan asynchronous request
+-> Synchronous request membuat browser menunggu respons dari server sebelum melanjutkan aktivitas lain, sehingga halaman akan berhenti sementara. Sebaliknya, asynchronous request memungkinkan browser tetap aktif karena proses permintaan dan respons berjalan di latar belakang tanpa menghentikan interaksi pengguna.
+
+2. Cara kerja AJAX di Django (alur request–response)
+-> AJAX di Django bekerja dengan cara JavaScript mengirim permintaan ke server tanpa bikin halaman ke-refresh. Server Django lalu memproses data itu dan kirim balik hasilnya dalam bentuk JSON. Setelah itu, JavaScript langsung menampilkan hasilnya di halaman, jadi kelihatan seperti datanya muncul otomatis.
+
+3. Keuntungan menggunakan AJAX dibandingkan render biasa di Django
+-> Dengan AJAX, website jadi lebih cepat dan tidak perlu bolak-balik reload halaman. Jadi kalau menambah produk atau update data, hasilnya langsung muncul tanpa nunggu lama. Hal ini membuat pengguna merasa website lebih ringan dan enak dipakai.
+
+4. Cara memastikan keamanan saat menggunakan AJAX untuk fitur Login dan Register di Django
+-> Untuk menjaga keamanan, Django menggunakan token CSRF (Cross-Site Request Forgery) yang wajib disertakan pada setiap permintaan POST. token ini memastikan bahwa permintaan benar-benar berasal dari situs yang sah dan bukan dari pihak luar yang berbahaya.
+
+5. Dampak AJAX terhadap pengalaman pengguna (User Experience)
+-> AJAX membuat pengalaman pengguna lebih baik karena interaksi menjadi cepat dan real-time. pengguna dapat melihat perubahan atau pembaruan data langsung tanpa harus menunggu pemuatan ulang seluruh halaman, sehingga website terasa lebih modern dan interaktif.
