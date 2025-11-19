@@ -177,4 +177,4 @@ TUGAS 6
 -> Untuk menjaga keamanan, Django menggunakan token CSRF (Cross-Site Request Forgery) yang wajib disertakan pada setiap permintaan POST. token ini memastikan bahwa permintaan benar-benar berasal dari situs yang sah dan bukan dari pihak luar yang berbahaya.
 
 5. Dampak AJAX terhadap pengalaman pengguna (User Experience)
--> AJAX membuat pengalaman pengguna lebih baik, karena interaksi menjadi cepat dan real-time. pengguna dapat melihat perubahan atau pembaruan data langsung tanpa harus menunggu pemuatan ulang seluruh halaman, sehingga website terasa lebih modern dan interaktif.
+-> AJAX membuat pengalaman pengguna lebih baik, karena interaksi menjadi cepat dan real-time. pengguna dapat melihat perubahan atau pembaruan data langsung tanpa harus menunggu pemuatan ulang seluruh halaman, sehingga website terasa lebih modern dan interaktif..
